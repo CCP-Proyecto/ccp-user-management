@@ -14,7 +14,7 @@ services:
       - ccp
     develop:
       watch:
-        - action: rebuild
+        - action: sync+restart
           path: ./src
           target: /app/src
           ignore:
