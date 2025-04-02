@@ -7,7 +7,7 @@ import { user } from "@/db/schema/auth-schema";
 const validApps = ["ccp-web", "ccp-sales", "ccp-customer"];
 
 export const validateUserApp = createAuthMiddleware(async (ctx) => {
-  if ((ctx.context.returned as APIError).status) {
+  if ((ctx.context?.returned as APIError)?.status) {
     return;
   }
 

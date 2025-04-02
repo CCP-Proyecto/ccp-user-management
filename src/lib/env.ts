@@ -4,7 +4,7 @@ const envType = type({
   BETTER_AUTH_SECRET: "string",
   BETTER_AUTH_URL: "string",
   DATABASE_URL: "string",
-  "PORT?": "number",
+  "PORT?": "string",
 });
 
 const parsedEnv = envType(process.env);
