@@ -4,5 +4,4 @@
 !tsconfig.json
 !src/*
 !drizzle.config.ts
-!dist/*
-!entrypoint.sh
+!drizzle/*
