@@ -1,0 +1,19 @@
+name: CI Workflow
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun test
+        env:
+          BETTER_AUTH_SECRET: test_secret
+          BETTER_AUTH_URL: http://localhost:3000
+          DATABASE_URL: postgres://postgres:postgres@db:5432/ccp
