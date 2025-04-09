@@ -16,3 +16,4 @@ jobs:
         env:
           BETTER_AUTH_SECRET: test_secret
           BETTER_AUTH_URL: http://localhost:3000
+          DATABASE_URL: postgres://postgres:postgres@db:5432/ccp
