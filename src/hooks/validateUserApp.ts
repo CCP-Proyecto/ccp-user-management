@@ -5,13 +5,14 @@ import { db } from "@/db";
 import { user } from "@/db/schema/auth-schema";
 
 const validApps = ["ccp-web", "ccp-sales", "ccp-customer"];
+const BETTER_AUTH_SIGN_IN_PATH = "/sign-in/email";
 
 export const validateUserApp = createAuthMiddleware(async (ctx) => {
   if ((ctx.context?.returned as APIError)?.status) {
     return;
   }
 
-  if (ctx.path !== "/sign-in/email") {
+  if (ctx.path !== BETTER_AUTH_SIGN_IN_PATH) {
     return;
   }
 

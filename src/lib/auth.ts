@@ -29,7 +29,7 @@ export const auth = betterAuth({
     enabled: true,
     autoSignIn: false,
   },
-  trustedOrigins: ["http://localhost:3001"],
+  // trustedOrigins: ["http://localhost:3002"],
   plugins: [openAPI()],
   hooks: {
     after: validateUserApp,
