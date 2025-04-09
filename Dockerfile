@@ -15,10 +15,4 @@ ENV DATABASE_URL=postgres://postgres:postgres@localhost:5432/ccp
 
 EXPOSE $PORT
 
-RUN bun run db:generate
-
-RUN chmod +x entrypoint.sh
-
-ENTRYPOINT ["./entrypoint.sh"]
-
 CMD ["bun", "run", "start"]
