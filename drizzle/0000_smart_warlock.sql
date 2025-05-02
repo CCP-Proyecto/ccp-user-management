@@ -51,7 +51,9 @@ BEGIN
             "created_at" timestamp NOT NULL,
             "updated_at" timestamp NOT NULL,
             "roles" text[] NOT NULL,
-            CONSTRAINT "user_email_unique" UNIQUE("email")
+            "user_id" text NOT NULL,
+            CONSTRAINT "user_email_unique" UNIQUE("email"),
+            CONSTRAINT "user_user_id_unique" UNIQUE("user_id")
         );
     END IF;
 END $$;
