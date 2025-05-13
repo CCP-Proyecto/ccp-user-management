@@ -1,5 +1,5 @@
 -- Create account table if it doesn't exist
-DO $$ 
+DO $$
 BEGIN
     IF NOT EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename = 'account') THEN
         CREATE TABLE "account" (
@@ -21,7 +21,7 @@ BEGIN
 END $$;
 
 -- Create session table if it doesn't exist
-DO $$ 
+DO $$
 BEGIN
     IF NOT EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename = 'session') THEN
         CREATE TABLE "session" (
@@ -39,7 +39,7 @@ BEGIN
 END $$;
 
 -- Create user table if it doesn't exist
-DO $$ 
+DO $$
 BEGIN
     IF NOT EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename = 'user') THEN
         CREATE TABLE "user" (
@@ -51,13 +51,15 @@ BEGIN
             "created_at" timestamp NOT NULL,
             "updated_at" timestamp NOT NULL,
             "roles" text[] NOT NULL,
-            CONSTRAINT "user_email_unique" UNIQUE("email")
+            "user_id" text NOT NULL,
+            CONSTRAINT "user_email_unique" UNIQUE("email"),
+            CONSTRAINT "user_user_id_unique" UNIQUE("user_id")
         );
     END IF;
 END $$;
 
 -- Create verification table if it doesn't exist
-DO $$ 
+DO $$
 BEGIN
     IF NOT EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename = 'verification') THEN
         CREATE TABLE "verification" (
@@ -72,27 +74,27 @@ BEGIN
 END $$;
 
 -- Add foreign key constraints if they don't exist
-DO $$ 
+DO $$
 BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM pg_constraint WHERE conname = 'account_user_id_user_id_fk'
     ) THEN
-        ALTER TABLE "account" 
-        ADD CONSTRAINT "account_user_id_user_id_fk" 
-        FOREIGN KEY ("user_id") 
-        REFERENCES "public"."user"("id") 
-        ON DELETE cascade 
+        ALTER TABLE "account"
+        ADD CONSTRAINT "account_user_id_user_id_fk"
+        FOREIGN KEY ("user_id")
+        REFERENCES "public"."user"("id")
+        ON DELETE cascade
         ON UPDATE no action;
     END IF;
-    
+
     IF NOT EXISTS (
         SELECT 1 FROM pg_constraint WHERE conname = 'session_user_id_user_id_fk'
     ) THEN
-        ALTER TABLE "session" 
-        ADD CONSTRAINT "session_user_id_user_id_fk" 
-        FOREIGN KEY ("user_id") 
-        REFERENCES "public"."user"("id") 
-        ON DELETE cascade 
+        ALTER TABLE "session"
+        ADD CONSTRAINT "session_user_id_user_id_fk"
+        FOREIGN KEY ("user_id")
+        REFERENCES "public"."user"("id")
+        ON DELETE cascade
         ON UPDATE no action;
     END IF;
 END $$;
